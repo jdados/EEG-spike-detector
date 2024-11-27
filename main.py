@@ -23,8 +23,8 @@ if __name__ == "__main__":
     menu_message = "    1. Load a dataset\n    2. Search for a repeating signal\n    3. Detect peaks\n    4. Save results\n    5. Exit\n"
     eeg_data_loaded = False
     eeg_data_filename = ''
-    eeg_data_list = csv_to_list('eeg_data_random.csv')
-    eeg_data_heap = csv_to_heap('eeg_data_random.csv')
+    eeg_data_list = ''
+    eeg_data_heap = ''
     
 
     print(welcome_message)
@@ -35,8 +35,21 @@ if __name__ == "__main__":
         menu_selection = input()
 
         if menu_selection == '1':
-            pass
-            # TODO, for now it just loads eeg_data_random.csv 
+            # Collect file name
+            eeg_data_filename = input('Enter .csv file name: ')
+            eeg_data_loaded = False 
+            if not '.' in eeg_data_filename:
+                eeg_data_filename += '.csv'
+            # Error handling  
+            try:
+                eeg_data_list = csv_to_list(eeg_data_filename)
+                eeg_data_heap = csv_to_heap(eeg_data_filename)
+            except:
+                print("File not found or not in .csv format.\n")
+                continue
+            # File will now be used for next commands
+            eeg_data_loaded = True
+            print("Success.\n")
 
         elif menu_selection == '2':
             pass
@@ -48,6 +61,7 @@ if __name__ == "__main__":
                 eeg_data_filename = 'eeg_data_random.csv'
                 eeg_data_list = csv_to_list('eeg_data_random.csv')
                 eeg_data_heap = csv_to_heap('eeg_data_random.csv')
+                eeg_data_loaded = True
             
              # Get and print peak 
             peak = eeg_data_heap.extract_max()
