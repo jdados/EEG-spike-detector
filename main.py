@@ -1,5 +1,6 @@
 import csv
 import heap as hp
+import time
 
 def csv_to_list(file_name):
     l = []
@@ -63,14 +64,19 @@ if __name__ == "__main__":
             # Extract n peaks 
             n = input("Enter how many peaks the program should extract: ")
             print(f"The following peaks are detected in {eeg_data_filename}:")
+
             temp = eeg_data_list[:]
             output.clear()
+            start_time = time.time()
+
             for i in range(int(n)):
                 peak = max(temp, key=lambda x: x[1])
                 temp.remove(peak)
                 print(f'{peak}')
                 output.append(peak)
-            print()
+            
+            end_time = time.time()
+            print(f"Time taken for list-based peak detection: {end_time - start_time:.10f} seconds\n")
 
         elif menu_selection == '3':
             # Use the randomly generated data if user doesn't load their own
@@ -83,13 +89,18 @@ if __name__ == "__main__":
             # Extract n peaks 
             n = input("Enter how many peaks the program should extract: ")
             print(f"The following peaks are detected in {eeg_data_filename}:")
+
             output.clear()
+            start_time = time.time()
+
             for i in range(int(n)):
                 peak = eeg_data_heap.extract_max()
                 print(f'{peak}')
                 output.append(peak)
-            print()
 
+            end_time = time.time()
+            print(f"Time taken for heap-based peak detection: {end_time - start_time:.10f} seconds\n")
+            
 
         elif menu_selection == '4':
             # Saves anything in the output list to a simple txt file 
