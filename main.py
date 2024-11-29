@@ -25,6 +25,7 @@ if __name__ == "__main__":
     eeg_data_filename = ''
     eeg_data_list = ''
     eeg_data_heap = ''
+    output = []
     
 
     print(welcome_message)
@@ -63,10 +64,12 @@ if __name__ == "__main__":
             n = input("Enter how many peaks the program should extract: ")
             print(f"The following peaks are detected in {eeg_data_filename}:")
             temp = eeg_data_list[:]
+            output.clear()
             for i in range(int(n)):
                 peak = max(temp, key=lambda x: x[1])
                 temp.remove(peak)
                 print(f'{peak}')
+                output.append(peak)
             print()
 
         elif menu_selection == '3':
@@ -80,15 +83,27 @@ if __name__ == "__main__":
             # Extract n peaks 
             n = input("Enter how many peaks the program should extract: ")
             print(f"The following peaks are detected in {eeg_data_filename}:")
+            output.clear()
             for i in range(int(n)):
                 peak = eeg_data_heap.extract_max()
                 print(f'{peak}')
+                output.append(peak)
             print()
 
 
         elif menu_selection == '4':
-            pass
-            # TODO, will just save whatever to a txt file probaly
+            # Saves anything in the output list to a simple txt file 
+            if not output:
+                print("Error: nothing to save.\n")
+            else:
+                try:
+                    with open("results.txt", 'w') as output_file:
+                        output_file.write("Detected peaks:\n")
+                        for i in output:
+                            output_file.write(f"Time: {i[0]:.4f}, Amplitude: {i[1]:.3f}\n")
+                    print("Results saved to results.txt\n")
+                except:
+                    print("Error: something went wrong.")
 
         elif menu_selection == '5' or menu_selection.lower() == 'exit':
             break
