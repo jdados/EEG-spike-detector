@@ -70,7 +70,11 @@ if __name__ == "__main__":
             start_time = time.time()
 
             for i in range(int(n)):
-                peak = max(temp, key=lambda x: x[1])
+                # Peak in the list is found by iterating through the whole list and finding the max value
+                peak = temp[0]
+                for i in range(len(temp)):
+                    if temp[i][1] > peak[1]:
+                        peak = temp[i]
                 temp.remove(peak)
                 print(f'{peak}')
                 output.append(peak)
@@ -114,7 +118,7 @@ if __name__ == "__main__":
                             output_file.write(f"Time: {i[0]:.4f}, Amplitude: {i[1]:.3f}\n")
                     print("Results saved to results.txt\n")
                 except:
-                    print("Error: something went wrong.")
+                    print("Error: something went wrong.\n")
 
         elif menu_selection == '5' or menu_selection.lower() == 'exit':
             break
