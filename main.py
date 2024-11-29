@@ -20,7 +20,7 @@ def csv_to_heap(file_name):
 if __name__ == "__main__":
     # Terminal UI variables
     welcome_message = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n*                                           *\n*    ---      EEG Analyzer      ---         *\n*                                           *\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
-    menu_message = "    1. Load a dataset\n    2. Search for a repeating signal\n    3. Detect peaks\n    4. Save results\n    5. Exit\n"
+    menu_message = "    1. Load a dataset\n    2. Detect peaks using python list\n    3. Detect peaks using heap\n    4. Save results\n    5. Exit\n"
     eeg_data_loaded = False
     eeg_data_filename = ''
     eeg_data_list = ''
@@ -52,8 +52,22 @@ if __name__ == "__main__":
             print("Success.\n")
 
         elif menu_selection == '2':
-            pass
-            # TODO, maybe this won't even be in our project
+            # Use the randomly generated data if user doesn't load their own
+            if not eeg_data_loaded:
+                eeg_data_filename = 'eeg_data_random.csv'
+                eeg_data_list = csv_to_list('eeg_data_random.csv')
+                eeg_data_heap = csv_to_heap('eeg_data_random.csv')
+                eeg_data_loaded = True
+            
+            # Extract n peaks 
+            n = input("Enter how many peaks the program should extract: ")
+            print(f"The following peaks are detected in {eeg_data_filename}:")
+            temp = eeg_data_list[:]
+            for i in range(int(n)):
+                peak = max(temp, key=lambda x: x[1])
+                temp.remove(peak)
+                print(f'{peak}')
+            print()
 
         elif menu_selection == '3':
             # Use the randomly generated data if user doesn't load their own
@@ -63,9 +77,13 @@ if __name__ == "__main__":
                 eeg_data_heap = csv_to_heap('eeg_data_random.csv')
                 eeg_data_loaded = True
             
-             # Get and print peak 
-            peak = eeg_data_heap.extract_max()
-            print(f'The following peak is detected in {eeg_data_filename}:\n{peak}\n')
+            # Extract n peaks 
+            n = input("Enter how many peaks the program should extract: ")
+            print(f"The following peaks are detected in {eeg_data_filename}:")
+            for i in range(int(n)):
+                peak = eeg_data_heap.extract_max()
+                print(f'{peak}')
+            print()
 
 
         elif menu_selection == '4':
