@@ -4,7 +4,9 @@ The first thing you need for running this program is a dataset with EEG data. Th
 If you do not have your own dataset, a randomly generated dataset containing 100,000 rows is provided in the previously mentioned CSV file.
 
 Next, this program is simply ran in your computer's terminal (python is required to be installed on the machine):
+
 ![image](https://github.com/user-attachments/assets/9b7737b8-f93b-4f50-83a3-2e3d5fa5176f)
 
 To interact with the program, simply answer the question's asked by the print-outs in the terminal. Here's a sample run:
+
 ![image](https://github.com/user-attachments/assets/72af1c29-26d3-4b9b-b119-7adbd06d12f9)
